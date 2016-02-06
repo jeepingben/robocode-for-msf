@@ -7,6 +7,8 @@
  */
 package net.sf.robocode.battle;
 
+import robocode.control.RobotSpecification;
+
 
 /**
  * @author Pavel Savara (original)
@@ -29,4 +31,6 @@ interface IBattle extends Runnable {
 	void waitTillOver();
 
 	void setPaintEnabled(int robotIndex, boolean enable);
+
+	void addRobot(RobotSpecification[] newrbt);
 }

@@ -8,17 +8,25 @@
 package net.sf.robocode.recording;
 
 
+import java.util.List;
+
 import net.sf.robocode.battle.BaseBattle;
 import net.sf.robocode.battle.IBattleManager;
 import net.sf.robocode.battle.events.BattleEventDispatcher;
 import net.sf.robocode.battle.snapshot.RobotSnapshot;
 import net.sf.robocode.settings.ISettingsManager;
 import robocode.BattleResults;
-import robocode.control.events.*;
+import robocode.control.RobotSpecification;
+import robocode.control.events.BattleCompletedEvent;
+import robocode.control.events.BattleFinishedEvent;
+import robocode.control.events.BattlePausedEvent;
+import robocode.control.events.BattleStartedEvent;
+import robocode.control.events.RoundEndedEvent;
+import robocode.control.events.RoundStartedEvent;
+import robocode.control.events.TurnEndedEvent;
+import robocode.control.events.TurnStartedEvent;
 import robocode.control.snapshot.IRobotSnapshot;
 import robocode.control.snapshot.ITurnSnapshot;
-
-import java.util.List;
 
 
 /**
@@ -145,5 +153,11 @@ public final class BattlePlayer extends BaseBattle {
 		public void execute() {
 			paint[robotIndex] = enablePaint;
 		}
+	}
+
+	@Override
+	public void addRobot(RobotSpecification[] newrbt) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -98,4 +98,8 @@ public abstract class BattleAdaptor implements IBattleListener {
 	 * {@inheritDoc}
 	 */
 	public void onBattleError(final BattleErrorEvent event) {}
+	/**
+	 * {@inheritDoc}
+	 */
+	public void onRobotAdded(final RobotAddedEvent event) {}
 }

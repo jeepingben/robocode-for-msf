@@ -19,6 +19,7 @@ import net.sf.robocode.ui.battleview.ScreenshotUtil;
 import net.sf.robocode.ui.gfx.ImageUtil;
 import net.sf.robocode.version.IVersionManager;
 import net.sf.robocode.version.Version;
+import robocode.control.RobotSpecification;
 import robocode.control.events.*;
 import robocode.control.snapshot.IRobotSnapshot;
 import robocode.control.snapshot.ITurnSnapshot;
@@ -26,6 +27,7 @@ import robocode.control.snapshot.ITurnSnapshot;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -994,6 +996,19 @@ public class RobocodeFrame extends JFrame {
 
 				EventQueue.invokeLater(resultTask);
 			}
+		}
+		
+		@Override
+		public void onRobotAdded(RobotAddedEvent newrbt) {
+			RobotSpecification rbt = newrbt.getRobotToAdd()[0];
+			int index = robotButtons.size();
+			final boolean attach = index < RobotDialogManager.MAX_PRE_ATTACHED;
+			final RobotButton button = net.sf.robocode.core.Container.createComponent(RobotButton.class);
+			int maxEnergy = 1;
+			button.setup(rbt.getName(), maxEnergy, index, index, attach);
+			button.setText(rbt.getName());
+			addRobotButton(button);
+			getRobotButtonsPanel().repaint();
 		}
 
 		private class ResultsTask implements Runnable {

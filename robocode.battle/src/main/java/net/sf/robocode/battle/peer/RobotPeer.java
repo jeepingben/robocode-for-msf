@@ -721,6 +721,9 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 				}
 			}
 		}
+		
+		lastExecutionTime = currentExecutionTime;
+		currentExecutionTime = battle.getTime();
 
 		setState(RobotState.ACTIVE);
 

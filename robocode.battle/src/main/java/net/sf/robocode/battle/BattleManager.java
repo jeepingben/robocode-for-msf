@@ -8,6 +8,16 @@
 package net.sf.robocode.battle;
 
 
+import static net.sf.robocode.io.Logger.logError;
+import static net.sf.robocode.io.Logger.logMessage;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import net.sf.robocode.battle.events.BattleEventDispatcher;
 import net.sf.robocode.core.Container;
 import net.sf.robocode.host.ICpuManager;
@@ -15,8 +25,6 @@ import net.sf.robocode.host.IHostManager;
 import net.sf.robocode.io.FileUtil;
 import net.sf.robocode.io.Logger;
 import net.sf.robocode.io.RobocodeProperties;
-import static net.sf.robocode.io.Logger.logError;
-import static net.sf.robocode.io.Logger.logMessage;
 import net.sf.robocode.recording.BattlePlayer;
 import net.sf.robocode.recording.IRecordManager;
 import net.sf.robocode.repository.IRepositoryManager;
@@ -29,10 +37,7 @@ import robocode.control.RobotSpecification;
 import robocode.control.events.BattlePausedEvent;
 import robocode.control.events.BattleResumedEvent;
 import robocode.control.events.IBattleListener;
-
-import java.io.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-
+import robocode.control.events.RobotAddedEvent;
 
 /**
  * @author Mathew A. Nelson (original)
@@ -362,6 +367,11 @@ public class BattleManager implements IBattleManager {
 			}
 		}
 	}
+	public synchronized void addRobot() {
+		RobotSpecification[ ] newrbt = repositoryManager.loadSelectedRobots("sample.Fire");
+		battle.addRobot(newrbt);
+		battleEventDispatcher.onRobotAdded(new RobotAddedEvent(newrbt));
+	}
 
 	/**
 	 * Steps for a single turn, then goes back to paused
@@ -402,3 +412,4 @@ public class BattleManager implements IBattleManager {
 		}
 	}
 }
+

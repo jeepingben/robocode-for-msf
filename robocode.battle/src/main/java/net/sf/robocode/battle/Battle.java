@@ -8,6 +8,16 @@
 package net.sf.robocode.battle;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import net.sf.robocode.battle.events.BattleEventDispatcher;
 import net.sf.robocode.battle.peer.BulletPeer;
 import net.sf.robocode.battle.peer.ContestantPeer;
@@ -21,20 +31,26 @@ import net.sf.robocode.io.RobocodeProperties;
 import net.sf.robocode.repository.IRobotItem;
 import net.sf.robocode.security.HiddenAccess;
 import net.sf.robocode.settings.ISettingsManager;
-import robocode.*;
+import robocode.BattleEndedEvent;
+import robocode.BattleResults;
+import robocode.BattleRules;
+import robocode.Event;
+import robocode.RobotDeathEvent;
+import robocode.WinEvent;
 import robocode.control.RandomFactory;
 import robocode.control.RobotResults;
 import robocode.control.RobotSetup;
 import robocode.control.RobotSpecification;
-import robocode.control.events.*;
+import robocode.control.events.BattleCompletedEvent;
+import robocode.control.events.BattleFinishedEvent;
+import robocode.control.events.BattlePausedEvent;
+import robocode.control.events.BattleStartedEvent;
 import robocode.control.events.RoundEndedEvent;
+import robocode.control.events.RoundStartedEvent;
+import robocode.control.events.TurnEndedEvent;
+import robocode.control.events.TurnStartedEvent;
 import robocode.control.snapshot.BulletState;
 import robocode.control.snapshot.ITurnSnapshot;
-
-import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -419,10 +435,10 @@ public final class Battle extends BaseBattle {
 
 		handleDeadRobots();
 
-		if (isAborted() || oneTeamRemaining()) {
+		if (isAborted()) {
 			shutdownTurn();
 		}
-
+	
 		inactiveTurnCount++;
 
 		computeActiveRobots();
@@ -591,6 +607,10 @@ public final class Battle extends BaseBattle {
 		// Scan after moved all
 		for (RobotPeer robotPeer : getRobotsAtRandom()) {
 			robotPeer.performScan(getRobotsAtRandom());
+		}
+		if (zap && oneTeamRemaining())
+		{
+			battleManager.addRobot();  //The fun never stops
 		}
 	}
 
@@ -882,5 +902,35 @@ public final class Battle extends BaseBattle {
 				}
 			}
 		}
+	}
+
+
+	@Override
+	public void addRobot(RobotSpecification[] specification) {
+			RobotPeer robotPeer = new RobotPeer(this, hostManager, specification[0], 0, null, contestants.size());
+			
+			robots.add(robotPeer);
+			//TODO add robots to teams?
+		    contestants.add(robotPeer);
+		    robotPeer.initializeRound(robots, null);
+		    robotsCount++;
+		    
+		    long waitMillis;
+			int waitNanos;
+
+			if (isDebugging()) {
+				waitMillis = DEBUG_TURN_WAIT_MILLIS;
+				waitNanos = 0;
+			} else {
+				long waitTime = Math.min(300 * cpuConstant, 10000000000L);
+
+				waitMillis = waitTime / 1000000;
+				waitNanos = (int) (waitTime % 1000000);
+			}
+
+				robotPeer.startRound(waitMillis, waitNanos);
+			
+				final ITurnSnapshot snapshot = new TurnSnapshot(this, robots, bullets, false);
+			eventDispatcher.onRoundStarted(new RoundStartedEvent(snapshot, getRoundNum()));
 	}
 }

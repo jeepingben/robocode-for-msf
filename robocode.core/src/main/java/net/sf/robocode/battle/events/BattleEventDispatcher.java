@@ -151,4 +151,14 @@ public class BattleEventDispatcher implements IBattleListener {
 			}
 		}
 	}
+	
+	public void onRobotAdded(RobotAddedEvent event) {
+		for (IBattleListener listener : listeners) {
+			try {
+				listener.onRobotAdded(event);
+			} catch (Throwable ex) {
+				Logger.realErr.println(listener.getClass() + " " + ex.getMessage());
+			}
+		}
+	}
 }

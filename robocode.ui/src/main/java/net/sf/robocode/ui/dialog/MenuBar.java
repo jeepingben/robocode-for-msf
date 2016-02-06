@@ -22,6 +22,7 @@ import static net.sf.robocode.ui.util.ShortcutUtil.MENU_SHORTCUT_KEY_MASK;
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -58,6 +59,7 @@ public class MenuBar extends JMenuBar {
 	private JMenuItem robotImportMenuItem;
 	private JMenuItem robotPackagerMenuItem;
 	private JMenuItem robotCreateTeamMenuItem;
+	private JMenuItem addNewRobotMenuItem;
 
 	// Options menu
 	private JMenu optionsMenu;
@@ -116,6 +118,8 @@ public class MenuBar extends JMenuBar {
 				robotImportActionPerformed();
 			} else if (source == mb.getRobotPackagerMenuItem()) {
 				robotPackagerActionPerformed();
+		    } else if (source == mb.getAddNewRobotMenuItem()) {
+				robotAddedActionPerformed();
 
 				// Team / Create Team menu
 			} else if (source == mb.getRobotCreateTeamMenuItem()) {
@@ -161,6 +165,7 @@ public class MenuBar extends JMenuBar {
 			}
 		}
 
+
 		public void menuDeselected(MenuEvent e) {
 			battleManager.resumeBattle();
 		}
@@ -202,6 +207,17 @@ public class MenuBar extends JMenuBar {
 		add(getOptionsMenu());
 		add(getHelpMenu());
 	}
+
+	public JMenuItem getAddNewRobotMenuItem() {
+		 if (addNewRobotMenuItem == null) {
+			 addNewRobotMenuItem = new JMenuItem();
+			 addNewRobotMenuItem.setText("Add New Robot");
+			 addNewRobotMenuItem.setMnemonic('4');
+			 addNewRobotMenuItem.addActionListener(eventHandler);
+		}
+		return addNewRobotMenuItem;
+	}
+
 
 	public void setup(RobocodeFrame robocodeFrame) {
 		this.robocodeFrame = robocodeFrame;
@@ -798,6 +814,7 @@ public class MenuBar extends JMenuBar {
 			robotMenu.add(getRobotPackagerMenuItem());
 			robotMenu.add(new JSeparator());
 			robotMenu.add(getRobotCreateTeamMenuItem());
+			robotMenu.add(getAddNewRobotMenuItem());
 			robotMenu.addMenuListener(eventHandler);
 		}
 		return robotMenu;
@@ -935,5 +952,9 @@ public class MenuBar extends JMenuBar {
 
 	private void robotPackagerActionPerformed() {
 		windowManager.showRobotPackager();
+	}
+
+	private void robotAddedActionPerformed() {
+		battleManager.addRobot();
 	}
 }

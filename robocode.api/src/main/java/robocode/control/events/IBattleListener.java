@@ -160,4 +160,15 @@ public interface IBattleListener {
 	 * @param event the event details.
 	 */
 	void onBattleError(final BattleErrorEvent event);
+	
+	/**
+	 * This method is called when a new robot joins the round (BEN)
+	 * <p/>
+	 * You must override this method in order to get informed about this event and receive the event details.
+	 *
+	 * @see RobotAddedEvent
+	 *
+	 * @param event the event details.
+	 */
+	void onRobotAdded(final RobotAddedEvent event);
 }

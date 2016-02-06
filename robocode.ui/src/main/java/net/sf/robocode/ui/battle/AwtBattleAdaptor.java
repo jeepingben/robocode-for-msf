@@ -331,5 +331,16 @@ public final class AwtBattleAdaptor {
 				}
 			});
 		}
+		
+		@Override
+		public void onRobotAdded(RobotAddedEvent newrbt) {
+			StringBuilder[] tmpArr = new StringBuilder[outCache.length + 1];
+			for (int i = 0; i < outCache.length; i++)
+			{
+				tmpArr[i] = outCache[i];
+			}
+			tmpArr[outCache.length] = new StringBuilder(1024);
+			outCache = tmpArr;
+		}
 	}
 }
