@@ -20,4 +20,5 @@ public interface IHiddenSpecificationHelper {
 	Object getFileSpecification(RobotSpecification specification);
 	void setTeamName(RobotSpecification specification, String teamName);
 	String getTeamName(RobotSpecification specification);
+	void setName(RobotSpecification specification, String name);
 }

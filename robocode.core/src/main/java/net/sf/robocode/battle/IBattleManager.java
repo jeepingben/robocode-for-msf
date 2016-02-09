@@ -92,5 +92,5 @@ public interface IBattleManager extends IBattleManagerBase {
 
 	void cleanup();
 	
-	void addRobot();
+	void addRobot(String className, String robotName);
 }

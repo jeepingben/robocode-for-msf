@@ -8,11 +8,59 @@
 package net.sf.robocode.ui.dialog;
 
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryUsage;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSlider;
+import javax.swing.JToggleButton;
+import javax.swing.JToolBar;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import net.sf.robocode.battle.IBattleManager;
+import net.sf.robocode.battle.snapshot.RobotSnapshot;
 import net.sf.robocode.recording.IRecordManager;
-import net.sf.robocode.settings.ISettingsManager;
 import net.sf.robocode.settings.ISettingsListener;
-import net.sf.robocode.ui.*;
+import net.sf.robocode.settings.ISettingsManager;
+import net.sf.robocode.ui.BrowserManager;
+import net.sf.robocode.ui.IRobotDialogManager;
+import net.sf.robocode.ui.IWindowManager;
+import net.sf.robocode.ui.IWindowManagerExt;
+import net.sf.robocode.ui.RobotDialogManager;
 import net.sf.robocode.ui.battleview.BattleView;
 import net.sf.robocode.ui.battleview.InteractiveHandler;
 import net.sf.robocode.ui.battleview.ScreenshotUtil;
@@ -20,21 +68,18 @@ import net.sf.robocode.ui.gfx.ImageUtil;
 import net.sf.robocode.version.IVersionManager;
 import net.sf.robocode.version.Version;
 import robocode.control.RobotSpecification;
-import robocode.control.events.*;
+import robocode.control.events.BattleAdaptor;
+import robocode.control.events.BattleCompletedEvent;
+import robocode.control.events.BattleFinishedEvent;
+import robocode.control.events.BattlePausedEvent;
+import robocode.control.events.BattleResumedEvent;
+import robocode.control.events.BattleStartedEvent;
+import robocode.control.events.RobotAddedEvent;
+import robocode.control.events.RoundStartedEvent;
+import robocode.control.events.TurnEndedEvent;
 import robocode.control.snapshot.IRobotSnapshot;
 import robocode.control.snapshot.ITurnSnapshot;
-
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.lang.management.MemoryUsage;
-import java.util.*;
-import java.util.List;
+import robocode.control.snapshot.RobotState;
 
 
 /**
@@ -139,6 +184,25 @@ public class RobocodeFrame extends JFrame {
 		getRobotButtonsPanel().add(b);
 		b.setVisible(true);
 		getRobotButtonsPanel().validate();
+	}
+	
+	
+	public void removeRobotButton(String name)
+	{
+		
+		for (Iterator<RobotButton> it = robotButtons.iterator(); it.hasNext(); ) 
+		{
+			RobotButton robotButton = it.next();
+			if (robotButton.getRobotName().equals(name))
+			{
+				robotButton.detach();
+				it.remove();
+				getRobotButtonsPanel().remove(robotButton);
+				getRobotButtonsPanel().validate();
+				getRobotButtonsPanel().repaint();
+			}
+		}
+			
 	}
 
 	public void checkUpdateOnStart() {
@@ -318,8 +382,8 @@ public class RobocodeFrame extends JFrame {
 			robotButtonsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 			robotButtonsScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			robotButtonsScrollPane.setAlignmentY(Component.TOP_ALIGNMENT);
-			robotButtonsScrollPane.setMaximumSize(new Dimension(113, 32767));
-			robotButtonsScrollPane.setPreferredSize(new Dimension(113, 28));
+			robotButtonsScrollPane.setMaximumSize(new Dimension(400, 32767));
+			robotButtonsScrollPane.setPreferredSize(new Dimension(200, 28));
 			robotButtonsScrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
 			robotButtonsScrollPane.setMinimumSize(new Dimension(113, 53));
 			robotButtonsScrollPane.setViewportView(getRobotButtonsPanel());
@@ -916,7 +980,19 @@ public class RobocodeFrame extends JFrame {
 			if (turn == null) {
 				return;
 			}
+			
+	
 
+			final IRobotSnapshot[] robots = event.getTurnSnapshot().getRobots();
+
+			for (int i = 0; i < robots.length; i++) {
+				RobotSnapshot robot = (RobotSnapshot) robots[i];
+				RobotState rs = robot.getState();
+				if (rs.isDead())
+				{
+					removeRobotButton(robot.getName());
+				}
+			}
 			tps = event.getTurnSnapshot().getTPS();
 			currentRound = event.getTurnSnapshot().getRound();
 			currentTurn = event.getTurnSnapshot().getTurn();
@@ -1010,6 +1086,7 @@ public class RobocodeFrame extends JFrame {
 			addRobotButton(button);
 			getRobotButtonsPanel().repaint();
 		}
+		
 
 		private class ResultsTask implements Runnable {
 			final BattleCompletedEvent event;

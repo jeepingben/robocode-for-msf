@@ -28,6 +28,7 @@ import net.sf.robocode.io.RobocodeProperties;
 import net.sf.robocode.recording.BattlePlayer;
 import net.sf.robocode.recording.IRecordManager;
 import net.sf.robocode.repository.IRepositoryManager;
+import net.sf.robocode.security.HiddenAccess;
 import net.sf.robocode.settings.ISettingsManager;
 import robocode.Event;
 import robocode.control.BattleSpecification;
@@ -367,8 +368,12 @@ public class BattleManager implements IBattleManager {
 			}
 		}
 	}
-	public synchronized void addRobot() {
-		RobotSpecification[ ] newrbt = repositoryManager.loadSelectedRobots("sample.Fire");
+	public synchronized void addRobot(String className, String name) {
+		RobotSpecification[ ] newrbt = repositoryManager.loadSelectedRobots(className);
+		if (newrbt.length == 0)
+			newrbt = repositoryManager.loadSelectedRobots("sample.Fire");
+		
+		HiddenAccess.setName(newrbt[0], name);
 		battle.addRobot(newrbt);
 		battleEventDispatcher.onRobotAdded(new RobotAddedEvent(newrbt));
 	}

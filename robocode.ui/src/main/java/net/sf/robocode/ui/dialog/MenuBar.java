@@ -955,6 +955,6 @@ public class MenuBar extends JMenuBar {
 	}
 
 	private void robotAddedActionPerformed() {
-		battleManager.addRobot();
+		battleManager.addRobot("sample.Crazy", "Player from Menu");
 	}
 }

@@ -125,7 +125,7 @@ public class RobotButton extends JButton implements ActionListener {
 		addActionListener(this);
 		setPreferredSize(new Dimension(110, 25));
 		setMinimumSize(new Dimension(110, 25));
-		setMaximumSize(new Dimension(110, 25));
+		setMaximumSize(new Dimension(410, 25));
 		setHorizontalAlignment(SwingConstants.LEFT);
 		setMargin(new Insets(0, 0, 0, 0));
 		setToolTipText(name);

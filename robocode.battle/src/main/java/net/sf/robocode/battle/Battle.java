@@ -610,7 +610,7 @@ public final class Battle extends BaseBattle {
 		}
 		if (zap && oneTeamRemaining())
 		{
-			battleManager.addRobot();  //The fun never stops
+			battleManager.addRobot("sample.Crazy", "Computer Player");  //The fun never stops
 		}
 	}
 
@@ -907,6 +907,7 @@ public final class Battle extends BaseBattle {
 
 	@Override
 	public void addRobot(RobotSpecification[] specification) {
+			
 			RobotPeer robotPeer = new RobotPeer(this, hostManager, specification[0], 0, null, contestants.size());
 			
 			robots.add(robotPeer);

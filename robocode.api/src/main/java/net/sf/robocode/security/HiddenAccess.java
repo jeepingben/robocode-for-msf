@@ -220,6 +220,10 @@ public class HiddenAccess {
 		specificationHelper.setTeamName(specification, teamName);
 	}
 
+	public static void setName(RobotSpecification specification, String name) {
+		specificationHelper.setName(specification, name);
+	}
+	
 	public static RobotStatus createStatus(double energy, double x, double y, double bodyHeading, double gunHeading, double radarHeading, double velocity,
 			double bodyTurnRemaining, double radarTurnRemaining, double gunTurnRemaining, double distanceRemaining, double gunHeat, int others,
 			int numSentries, int roundNum, int numRounds, long time) {

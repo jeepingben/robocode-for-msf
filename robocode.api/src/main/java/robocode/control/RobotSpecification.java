@@ -25,7 +25,7 @@ public class RobotSpecification implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private final Object fileSpecification;
-	private final String name;
+	private String name;
 	private final String author;
 	private final String webpage;
 	private final String version;
@@ -173,6 +173,10 @@ public class RobotSpecification implements java.io.Serializable {
 
 		public String getTeamName(RobotSpecification specification) {
 			return specification.teamId;
+		}
+		public void setName(RobotSpecification specification, String name)
+		{
+			specification.name = name;
 		}
 	}
 }
