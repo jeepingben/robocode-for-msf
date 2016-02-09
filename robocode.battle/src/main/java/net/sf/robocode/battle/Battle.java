@@ -906,32 +906,56 @@ public final class Battle extends BaseBattle {
 
 
 	@Override
-	public void addRobot(RobotSpecification[] specification) {
-			
-			RobotPeer robotPeer = new RobotPeer(this, hostManager, specification[0], 0, null, contestants.size());
-			
-			robots.add(robotPeer);
-			//TODO add robots to teams?
-		    contestants.add(robotPeer);
-		    robotPeer.initializeRound(robots, null);
-		    robotsCount++;
-		    
-		    long waitMillis;
-			int waitNanos;
-
-			if (isDebugging()) {
-				waitMillis = DEBUG_TURN_WAIT_MILLIS;
-				waitNanos = 0;
-			} else {
-				long waitTime = Math.min(300 * cpuConstant, 10000000000L);
-
-				waitMillis = waitTime / 1000000;
-				waitNanos = (int) (waitTime % 1000000);
+	public void addRobot(RobotSpecification specification) {
+		Map<String, Integer> countedNames = new HashMap<String, Integer>();
+		for (RobotPeer peer : robots) 
+		{
+			String name = peer.getVeryShortName();
+			if (name.endsWith(")") && name.length() > 4)
+			{
+				name = name.substring(0, name.length() - 4);
 			}
+			if (countedNames.containsKey(name)) {
+				int value = countedNames.get(name);
 
-				robotPeer.startRound(waitMillis, waitNanos);
-			
-				final ITurnSnapshot snapshot = new TurnSnapshot(this, robots, bullets, false);
-			eventDispatcher.onRoundStarted(new RoundStartedEvent(snapshot, getRoundNum()));
+				countedNames.put(name, value == 0?3:value + 1);
+			} else {
+				countedNames.put(name, 0);
+			}
+		}
+		final String newrbtname = specification.getName();
+
+		int duplicate = -1;
+		if (countedNames.containsKey(newrbtname)) {
+			duplicate = countedNames.get(newrbtname);
+		} 
+
+		RobotPeer robotPeer = new RobotPeer(this, hostManager, specification,
+				duplicate, null, contestants.size());
+
+		robots.add(robotPeer);
+		// TODO add robots to teams?
+		contestants.add(robotPeer);
+		robotPeer.initializeRound(robots, null);
+		robotsCount++;
+
+		long waitMillis;
+		int waitNanos;
+
+		if (isDebugging()) {
+			waitMillis = DEBUG_TURN_WAIT_MILLIS;
+			waitNanos = 0;
+		} else {
+			long waitTime = Math.min(300 * cpuConstant, 10000000000L);
+
+			waitMillis = waitTime / 1000000;
+			waitNanos = (int) (waitTime % 1000000);
+		}
+
+		robotPeer.startRound(waitMillis, waitNanos);
+
+		final ITurnSnapshot snapshot = new TurnSnapshot(this, robots, bullets,
+				false);
+		eventDispatcher.onRoundStarted(new RoundStartedEvent(snapshot, getRoundNum()));
 	}
 }

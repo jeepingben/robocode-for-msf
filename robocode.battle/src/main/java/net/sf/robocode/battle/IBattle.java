@@ -32,5 +32,5 @@ interface IBattle extends Runnable {
 
 	void setPaintEnabled(int robotIndex, boolean enable);
 
-	void addRobot(RobotSpecification[] newrbt);
+	void addRobot(RobotSpecification newrbt);
 }

@@ -369,12 +369,12 @@ public class BattleManager implements IBattleManager {
 		}
 	}
 	public synchronized void addRobot(String className, String name) {
-		RobotSpecification[ ] newrbt = repositoryManager.loadSelectedRobots(className);
-		if (newrbt.length == 0)
+		RobotSpecification[] newrbt = repositoryManager.loadSelectedRobots(className);
+		if (newrbt == null)
 			newrbt = repositoryManager.loadSelectedRobots("sample.Fire");
 		
 		HiddenAccess.setName(newrbt[0], name);
-		battle.addRobot(newrbt);
+		battle.addRobot(newrbt[0]);
 		battleEventDispatcher.onRobotAdded(new RobotAddedEvent(newrbt));
 	}
 

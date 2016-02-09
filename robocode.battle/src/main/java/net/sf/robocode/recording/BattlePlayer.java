@@ -156,7 +156,7 @@ public final class BattlePlayer extends BaseBattle {
 	}
 
 	@Override
-	public void addRobot(RobotSpecification[] newrbt) {
+	public void addRobot(RobotSpecification newrbt) {
 		// TODO Auto-generated method stub
 		
 	}
