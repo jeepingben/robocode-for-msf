@@ -911,9 +911,9 @@ public final class Battle extends BaseBattle {
 		for (RobotPeer peer : robots) 
 		{
 			String name = peer.getVeryShortName();
-			if (name.endsWith(")") && name.length() > 4)
+			if (name.endsWith(")") && name.contains(" ("))
 			{
-				name = name.substring(0, name.length() - 4);
+				name = name.substring(0, name.lastIndexOf(' '));
 			}
 			if (countedNames.containsKey(name)) {
 				int value = countedNames.get(name);
