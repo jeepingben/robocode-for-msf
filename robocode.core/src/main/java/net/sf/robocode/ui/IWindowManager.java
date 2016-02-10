@@ -35,6 +35,8 @@ public interface IWindowManager extends IWindowManagerBase {
 
 	void showRobocodeFrame(boolean visible, boolean iconified);
 
+	void showBarCodeScanDialog(boolean visible);
+
 	void showSplashScreen();
 
 	void cleanup();

@@ -129,6 +129,7 @@ public final class RobocodeMain extends RobocodeMainBase {
 					windowManager.showSplashScreen();
 				}
 				windowManager.showRobocodeFrame(true, setup.minimize);
+				windowManager.showBarCodeScanDialog(true);
 
 				// Play the intro battle if a battle file is not specified and this is the first time Robocode is being run
 
