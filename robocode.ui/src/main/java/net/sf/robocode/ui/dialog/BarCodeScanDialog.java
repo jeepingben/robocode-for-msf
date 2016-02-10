@@ -110,11 +110,10 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 		label = new JLabel();
 		label.setSize(width,height);
 		frame.getContentPane().add(label, BorderLayout.CENTER);
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 		frame.setTitle("Robocode Barcode Scanner");
 		frame.setVisible(true);
-		frame.setSize(width + 16, height + 16);
+		frame.setSize(width + 16, height + 44);
 		label.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.GREEN));
 	}
 
