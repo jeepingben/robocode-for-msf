@@ -1,7 +1,5 @@
 package net.sf.robocode.robotname;
 
-import static org.junit.Assert.*;
-
 import org.junit.Assert;
 import org.junit.Test;
 

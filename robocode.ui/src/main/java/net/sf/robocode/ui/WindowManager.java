@@ -180,8 +180,8 @@ public class WindowManager implements IWindowManagerExt {
 	
 	public BarCodeScanDialog getBarCodeScanDialog() {
 		if (barcodeScanDialog == null) {
-			this.barcodeScanDialog = new BarCodeScanDialog(battleManager);
-			WindowUtil.place(barcodeScanDialog);
+			this.barcodeScanDialog = new BarCodeScanDialog(battleManager, repositoryManager);
+			
 			
 		}
 		return barcodeScanDialog;
@@ -193,6 +193,7 @@ public class WindowManager implements IWindowManagerExt {
 
 		dialog.setEnabled(true);
 		dialog.setVisible(visible);
+		WindowUtil.place(dialog);
 	}
 	
 	public void showAboutBox() {

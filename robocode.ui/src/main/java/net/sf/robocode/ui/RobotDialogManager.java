@@ -55,6 +55,32 @@ public class RobotDialogManager implements IRobotDialogManager {
 			}
 		}
 	}
+	
+	public void purge(List<IRobotSnapshot> robots) {
+
+		// new ArrayList in order to prevent ConcurrentModificationException
+		for (String name : new ArrayList<String>(robotDialogMap.keySet())) {
+			boolean found = false;
+			boolean dead = false;
+			for (IRobotSnapshot robot : robots) {
+				if (robot.getName().equals(name)) {
+					found = true;
+					if (robot.getState().isDead())
+					{
+						dead = true;
+					}
+					break;
+				}
+			}
+			if (!found || dead) {
+				RobotDialog dialog = robotDialogMap.get(name);
+				System.out.println("purging " + name);
+				robotDialogMap.remove(name);
+				dialog.dispose();
+				dialog.detach();
+			}
+		}
+	}
 
 	public void reset() {
 		for (String name : robotDialogMap.keySet()) {

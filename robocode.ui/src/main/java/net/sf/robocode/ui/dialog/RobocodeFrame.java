@@ -139,6 +139,8 @@ public class RobocodeFrame extends JFrame {
 	private final IRecordManager recordManager;
 	private final BattleView battleView;
 	private final MenuBar menuBar;
+	
+	private int contestantNum;
 
 	final List<RobotButton> robotButtons = new ArrayList<RobotButton>();
 
@@ -163,6 +165,7 @@ public class RobocodeFrame extends JFrame {
 		this.menuBar = menuBar;
 		menuBar.setup(this);
 		initialize();
+		this.contestantNum = 0;
 	}
 
 	protected void finalize() throws Throwable {
@@ -177,32 +180,33 @@ public class RobocodeFrame extends JFrame {
 		setCursor(enabled ? BUSY_CURSOR : DEFAULT_CURSOR);
 	}
 
-	public void addRobotButton(JButton b) {
+	public synchronized void addRobotButton(JButton b) {
 		if (b instanceof RobotButton) {
 			robotButtons.add((RobotButton) b);
 		}
 		getRobotButtonsPanel().add(b);
 		b.setVisible(true);
 		getRobotButtonsPanel().validate();
+		contestantNum++;
 	}
 	
 	
-	public void removeRobotButton(String name)
+	public synchronized void  removeRobotButton(String name)
 	{
-		
-		for (Iterator<RobotButton> it = robotButtons.iterator(); it.hasNext(); ) 
+		Iterator<RobotButton> it = robotButtons.iterator();
+		while(it.hasNext()) 
 		{
 			RobotButton robotButton = it.next();
 			if (robotButton.getRobotName().equals(name))
 			{
-				robotButton.detach();
-				it.remove();
+				robotButton.detach();				
 				getRobotButtonsPanel().remove(robotButton);
+				it.remove();
+				
 				getRobotButtonsPanel().validate();
 				getRobotButtonsPanel().repaint();
 			}
 		}
-			
 	}
 
 	public void checkUpdateOnStart() {
@@ -984,7 +988,10 @@ public class RobocodeFrame extends JFrame {
 	
 
 			final IRobotSnapshot[] robots = event.getTurnSnapshot().getRobots();
-
+			//final List<IRobotSnapshot> robotsList = Arrays.asList(event.getTurnSnapshot().getRobots());
+			//dialogManager.purge(robotsList);
+			
+				
 			for (int i = 0; i < robots.length; i++) {
 				RobotSnapshot robot = (RobotSnapshot) robots[i];
 				RobotState rs = robot.getState();
@@ -1081,7 +1088,7 @@ public class RobocodeFrame extends JFrame {
 			final boolean attach = index < RobotDialogManager.MAX_PRE_ATTACHED;
 			final RobotButton button = net.sf.robocode.core.Container.createComponent(RobotButton.class);
 			int maxEnergy = 1;
-			button.setup(rbt.getName(), maxEnergy, index, index, attach);
+			button.setup(rbt.getName(), maxEnergy, index, contestantNum, attach);
 			button.setText(rbt.getName());
 			addRobotButton(button);
 			getRobotButtonsPanel().repaint();

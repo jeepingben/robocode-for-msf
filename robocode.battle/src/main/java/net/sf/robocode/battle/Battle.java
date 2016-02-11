@@ -918,7 +918,7 @@ public final class Battle extends BaseBattle {
 			if (countedNames.containsKey(name)) {
 				int value = countedNames.get(name);
 
-				countedNames.put(name, value == 0?3:value + 1);
+				countedNames.put(name, value == -1?1:value + 1);
 			} else {
 				countedNames.put(name, 0);
 			}

@@ -27,4 +27,6 @@ public interface IRobotDialogManager {
 
 	RobotDialog getRobotDialog(RobotButton robotButton, String name, boolean create);
 	BattleDialog getBattleDialog(BattleButton battleButton, boolean create);
+
+	void purge(List<IRobotSnapshot> robotsList);
 }
