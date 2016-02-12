@@ -8,7 +8,8 @@ public class AdjectiveTest {
 	@Test
 	public void test() {
 		Adjective sut = new Adjective();
-		Assert.assertEquals(sut.getWord("Bogus"), "excited");
+		Assert.assertEquals("spurious",sut.getWord("Bogus"));
+		Assert.assertEquals(sut.getWord("53"), "cultured");
 		
 	}
 

@@ -98,7 +98,8 @@ public final class RobotStatics implements IRobotStatics, Serializable {
 			this.teamName = teamName;
 		} else {
 			teammates = null;
-			this.teamName = name;
+			
+			this.teamName = shortName;
 		}
 	}
 

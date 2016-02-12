@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Word {
 	protected ArrayList<String> words;
-	public String getWord(String input)
+	public String getWord(String seed)
 	{
-		String result = words.get((int) (stringToNumber(input) % (words.size() -1) ));
+		String result = words.get((int) (stringToNumber(seed) % (words.size() -1) ));
 		return result;
 	}
 	

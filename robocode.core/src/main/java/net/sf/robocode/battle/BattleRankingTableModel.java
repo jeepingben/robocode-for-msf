@@ -26,6 +26,8 @@ import javax.swing.table.AbstractTableModel;
 @SuppressWarnings("serial")
 public class BattleRankingTableModel extends AbstractTableModel {
 
+	private static final String COMPUTER_PLAYER = "Computer Player";
+
 	private IScoreSnapshot[] scoreSnapshotList;
 
 	// The sum of the scores gathered by the robots in the actual round
@@ -49,7 +51,25 @@ public class BattleRankingTableModel extends AbstractTableModel {
 
 	public void updateSource(ITurnSnapshot snapshot) {
 		if (snapshot != null) {
-			scoreSnapshotList = snapshot.getSortedTeamScores();
+			IScoreSnapshot[] tmpScoreSnapshotList = snapshot.getSortedTeamScores();
+			int numHumanPlayers = 0;
+			for (int i = 0; i < tmpScoreSnapshotList.length; i++)
+			{
+				if (!tmpScoreSnapshotList[i].getName().startsWith(COMPUTER_PLAYER))
+				{
+					numHumanPlayers++;
+				}
+			}
+			scoreSnapshotList = new IScoreSnapshot[numHumanPlayers];
+			int index = 0;
+			for (IScoreSnapshot tmpSnapshot : tmpScoreSnapshotList) 
+			{
+				if(!(tmpSnapshot.getName().startsWith(COMPUTER_PLAYER)))
+				{
+					scoreSnapshotList[index] = tmpSnapshot;
+					index++;
+				}
+			}
 			countTotalScores();
 		} else {
 			scoreSnapshotList = null;

@@ -161,9 +161,7 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 				SymbolSet resultSet = imageScanner.getResults();
 				Symbol sym = resultSet.iterator().next();
 				String data = sym.getData();
-				if (data.length() < 4) {
-					data.concat("padding");
-				}
+				
 				lastScanTimeMillis = scanTimeMillis;
 				String robotName = RobotName.getName(data);
 				String robotClass = robotClassNamer.getRobotClassName(data);

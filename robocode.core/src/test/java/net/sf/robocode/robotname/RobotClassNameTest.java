@@ -312,7 +312,7 @@ public class RobotClassNameTest {
 		RobotClassName sut = new RobotClassName(new MockRepositoryManager());
 		Assert.assertEquals("foo", sut.getRobotClassName("Test1") );
 		Assert.assertEquals("foo2", sut.getRobotClassName("1234567") );
-		
+		Assert.assertEquals("baz", sut.getRobotClassName("53") );
 	}
 
 }
