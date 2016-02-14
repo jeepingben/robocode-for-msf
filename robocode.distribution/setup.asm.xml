@@ -78,7 +78,12 @@
 			</unpackOptions>
 -->
 			<outputDirectory>robots</outputDirectory>
-		</dependencySet>
+		</dependencySet><!--thirdparty stuff-->
+		<dependencySet>
+			<includes><include>com.github.sarxos:v4l4j</include>
+				<include>me.dm7.barcodescanner:zbar</include></includes>
+			<outputDirectory>libs</outputDirectory>
+			<unpack>false</unpack></dependencySet>
 	</dependencySets>
 	<fileSets>
 		<fileSet>

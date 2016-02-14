@@ -13,5 +13,7 @@
 	<classpathentry kind="src" path="/robocode.sound"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/v4l4j"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/zbar"/>
+	<classpathentry kind="lib" path="/v4l4j/target/v4l4j-0.9.1-r507.jar"/>
+	<classpathentry kind="lib" path="/zbar/zbar.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
