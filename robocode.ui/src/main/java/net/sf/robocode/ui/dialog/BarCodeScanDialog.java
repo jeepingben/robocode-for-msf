@@ -89,6 +89,7 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 		videoDevice = new VideoDevice(device); // getting the webcam
 		frameGrabber = videoDevice.getJPEGFrameGrabber(width, height, channel,
 				std, 80);
+		frameGrabber.setFrameInterval(1, 20);
 		frameGrabber.setCaptureCallback(this);
 		width = frameGrabber.getWidth();
 		height = frameGrabber.getHeight();
