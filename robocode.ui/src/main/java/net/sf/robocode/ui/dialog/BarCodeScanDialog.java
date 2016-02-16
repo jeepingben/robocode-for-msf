@@ -25,7 +25,9 @@ import au.edu.jcu.v4l4j.FrameGrabber;
 import au.edu.jcu.v4l4j.V4L4JConstants;
 import au.edu.jcu.v4l4j.VideoDevice;
 import au.edu.jcu.v4l4j.VideoFrame;
+import au.edu.jcu.v4l4j.exceptions.InvalidValue;
 import au.edu.jcu.v4l4j.exceptions.StateException;
+import au.edu.jcu.v4l4j.exceptions.UnsupportedMethod;
 import au.edu.jcu.v4l4j.exceptions.V4L4JException;
 
 /**
@@ -89,7 +91,20 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 		videoDevice = new VideoDevice(device); // getting the webcam
 		frameGrabber = videoDevice.getJPEGFrameGrabber(width, height, channel,
 				std, 80);
+		try
+		{
+		
+		frameGrabber.setFrameInterval(1, 30);
 		frameGrabber.setFrameInterval(1, 20);
+		}
+		catch(InvalidValue e)
+		{
+			
+		}
+		catch(UnsupportedMethod e)
+		{
+			System.out.println("Couldn't set framerate.  Expect high CPU usage.");
+		}
 		frameGrabber.setCaptureCallback(this);
 		width = frameGrabber.getWidth();
 		height = frameGrabber.getHeight();
