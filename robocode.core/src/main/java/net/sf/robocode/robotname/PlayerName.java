@@ -1,9 +1,9 @@
 package net.sf.robocode.robotname;
 
-public class RobotName {
+public class PlayerName {
 	static Noun nounGetter = new Noun();
 	static Adjective adjectiveGetter = new Adjective();
-	static public String getName(String seed)
+	static public String getRandomName(String seed)
 	{
 		while (seed.length() <= 5)
 		{

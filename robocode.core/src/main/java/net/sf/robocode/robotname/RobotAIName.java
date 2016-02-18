@@ -5,14 +5,14 @@ import java.util.List;
 import net.sf.robocode.repository.IRepositoryManager;
 import net.sf.robocode.repository.IRobotSpecItem;
 
-public class RobotClassName {
+public class RobotAIName {
 	private IRepositoryManager repositoryManager;
-	public RobotClassName(IRepositoryManager srcRepositoryManager)
+	public RobotAIName(IRepositoryManager srcRepositoryManager)
 	{
 		repositoryManager = srcRepositoryManager;
 	}
 	
-	public String getRobotClassName(String seed)
+	public String getRandomRobotClassName(String seed)
 	{
 	List<IRobotSpecItem> robotList = repositoryManager.getRepositoryItems(false,
 			false, true, false, false, false, false);

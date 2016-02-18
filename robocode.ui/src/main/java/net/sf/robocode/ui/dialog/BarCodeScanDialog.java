@@ -14,8 +14,9 @@ import javax.swing.JLabel;
 
 import net.sf.robocode.battle.IBattleManager;
 import net.sf.robocode.repository.IRepositoryManager;
-import net.sf.robocode.robotname.RobotClassName;
-import net.sf.robocode.robotname.RobotName;
+import net.sf.robocode.robotname.RobotAIName;
+import net.sf.robocode.robotname.RobotNameFactory;
+import net.sf.robocode.robotname.RobotNameInfo;
 import net.sourceforge.zbar.Image;
 import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
@@ -49,7 +50,7 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 	private JLabel label;
 	private boolean scanningdisabled;
 	private IBattleManager battleManager;
-	private RobotClassName robotClassNamer;
+	private RobotNameFactory nameInfoFactory;
 	private long lastScanTimeMillis;
 	private Image image;
 	private ImageScanner imageScanner;
@@ -61,7 +62,7 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 		lastScanTimeMillis = -1;
 		scanningdisabled = false;
 		this.battleManager = battleManager2;
-		robotClassNamer = new RobotClassName(repositoryManager);
+		nameInfoFactory = new RobotNameFactory(repositoryManager);
 		System.out.println("PATH IS" + System.getProperty("java.library.path"));
 		System.loadLibrary("video");
 		System.loadLibrary("v4l4j");
@@ -179,11 +180,11 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 				String data = sym.getData();
 				
 				lastScanTimeMillis = scanTimeMillis;
-				String robotName = RobotName.getName(data);
-				String robotClass = robotClassNamer.getRobotClassName(data);
-				System.out.println("Adding a " + robotClass + " called "
-						+ robotName + "(from " + sym.getData() + ")");
-				battleManager.addRobot(robotClass, robotName);
+				RobotNameInfo robotName = nameInfoFactory.getRobotNameInfo(data);
+				System.out.println("Adding a " + robotName.getRobotAIName() + " called "
+						+ robotName.getContestantName() + "(from " + sym.getData() + ")");
+			
+				battleManager.addRobot(robotName.getRobotAIName(), robotName.getContestantName());
 				scanningdisabled = true;
 				label.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4,
 						Color.RED));
