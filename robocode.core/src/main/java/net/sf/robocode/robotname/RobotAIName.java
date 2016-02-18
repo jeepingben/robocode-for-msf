@@ -1,5 +1,7 @@
 package net.sf.robocode.robotname;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import net.sf.robocode.repository.IRepositoryManager;
@@ -41,4 +43,16 @@ public class RobotAIName {
 		return Math.abs(result);
 	}
 
+	public List<String> getAvailableAINames()
+	{
+		List<IRobotSpecItem> robotList = repositoryManager.getRepositoryItems(false,
+				false, true, false, false, false, false);
+		List<String> names = new ArrayList<String>();
+		Iterator<IRobotSpecItem> it = robotList.iterator();
+		while (it.hasNext())
+		{
+			names.add(it.next().getFullClassName());
+		}
+		return names;
+	}
 }
