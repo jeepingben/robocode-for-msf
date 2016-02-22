@@ -12,6 +12,7 @@ import net.sf.robocode.battle.IBattleManager;
 import net.sf.robocode.host.ICpuManager;
 import net.sf.robocode.recording.BattleRecordFormat;
 import net.sf.robocode.recording.IRecordManager;
+import net.sf.robocode.robotname.RobotNameInfo;
 import net.sf.robocode.serialization.SerializableOptions;
 import net.sf.robocode.settings.ISettingsListener;
 import net.sf.robocode.settings.ISettingsManager;
@@ -955,6 +956,9 @@ public class MenuBar extends JMenuBar {
 	}
 
 	private void robotAddedActionPerformed() {
-		battleManager.addRobot("sample.Crazy", "Player from Menu");
+		RobotNameInfo menuRobot = new RobotNameInfo();
+		menuRobot.setContestantName("Player from Menu");
+		menuRobot.setRobotAIName("sample.Crazy");
+		battleManager.addRobot(menuRobot);
 	}
 }

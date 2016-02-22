@@ -14,4 +14,20 @@ public class PlayerName {
 				nounGetter.getWord(seed.substring(3,seed.length())));
 		
 	}
+	
+	static public String getAdjective(Integer index)
+	{
+		if (index >= adjectiveGetter.getListLength()) {
+			return null;
+		}
+		return adjectiveGetter.getWordFromList(index);
+	}
+	
+	static public String getNoun(Integer index)
+	{
+		if (index >= nounGetter.getListLength()) {
+			return null;
+		}
+		return nounGetter.getWordFromList(index);
+	}
 }

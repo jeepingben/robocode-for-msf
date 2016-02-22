@@ -184,7 +184,7 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 				System.out.println("Adding a " + robotName.getRobotAIName() + " called "
 						+ robotName.getContestantName() + "(from " + sym.getData() + ")");
 			
-				battleManager.addRobot(robotName.getRobotAIName(), robotName.getContestantName());
+				battleManager.addRobot(robotName);
 				scanningdisabled = true;
 				label.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4,
 						Color.RED));

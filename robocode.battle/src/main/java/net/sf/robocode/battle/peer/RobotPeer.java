@@ -740,7 +740,9 @@ public final class RobotPeer implements IRobotPeerBattle, IRobotPeer {
 		if (statics.isDroid()) {
 			energy += 20;
 		}
-
+		//Some animals are more equal than others
+		energy += robotSpecification.getEnergyBonus();
+		
 		gunHeat = 3;
 
 		setHalt(false);

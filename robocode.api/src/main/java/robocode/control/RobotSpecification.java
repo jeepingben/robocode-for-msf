@@ -34,6 +34,7 @@ public class RobotSpecification implements java.io.Serializable {
 	private final String fullClassName;
 	private final String description;
 	private String teamId;
+	private Integer energyBonus;
 
 	private RobotSpecification(Object fileSpecification, String name, String author, String webpage, String version, String robocodeVersion, String jarFile, String fullClassName, String description) {
 		this.fileSpecification = fileSpecification;
@@ -45,6 +46,7 @@ public class RobotSpecification implements java.io.Serializable {
 		this.jarFile = jarFile;
 		this.fullClassName = fullClassName;
 		this.description = description;
+		this.energyBonus = 0;
 	}
 
 	/**
@@ -142,6 +144,15 @@ public class RobotSpecification implements java.io.Serializable {
 	public String getAuthorName() {
 		return author;
 	}
+	
+	/**
+	 * Returns the value of the energy bonus given to this robot
+	 *
+	 * @return the energy bonus of the robot.
+	 */
+	public Integer getEnergyBonus() {
+		return energyBonus;
+	}
 
 	/**
 	 * Returns id of the team in current battle.
@@ -177,6 +188,11 @@ public class RobotSpecification implements java.io.Serializable {
 		public void setName(RobotSpecification specification, String name)
 		{
 			specification.name = name;
+		}
+		
+		public void giveEnergyBonus(RobotSpecification specification, Integer bonus)
+		{
+			specification.energyBonus = bonus;
 		}
 	}
 }

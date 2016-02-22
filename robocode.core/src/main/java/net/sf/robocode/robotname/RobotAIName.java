@@ -55,4 +55,15 @@ public class RobotAIName {
 		}
 		return names;
 	}
+	
+	public String getAIName (Integer index)
+	{
+		List<IRobotSpecItem> robotList = repositoryManager.getRepositoryItems(false,
+				false, true, false, false, false, false);
+		if (index < robotList.size())
+		{
+			return robotList.get((int)index).getFullClassName();
+		}
+		return null;
+	}
 }

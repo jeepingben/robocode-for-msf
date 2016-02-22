@@ -21,4 +21,5 @@ public interface IHiddenSpecificationHelper {
 	void setTeamName(RobotSpecification specification, String teamName);
 	String getTeamName(RobotSpecification specification);
 	void setName(RobotSpecification specification, String name);
+	void giveEnergyBonus(RobotSpecification specification, Integer bonus);
 }

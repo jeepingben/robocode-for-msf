@@ -25,4 +25,15 @@ public class Word {
 		}
 		return Math.abs(result);
 	}
+	
+	protected Integer getListLength() {
+		return words.size();
+	}
+	
+	protected String getWordFromList(Integer index) {
+		if (index < words.size()) {
+			return words.get(index);
+		}
+		return null;
+	}
 }

@@ -29,6 +29,7 @@ import net.sf.robocode.host.IHostManager;
 import net.sf.robocode.io.Logger;
 import net.sf.robocode.io.RobocodeProperties;
 import net.sf.robocode.repository.IRobotItem;
+import net.sf.robocode.robotname.RobotNameInfo;
 import net.sf.robocode.security.HiddenAccess;
 import net.sf.robocode.settings.ISettingsManager;
 import robocode.BattleEndedEvent;
@@ -610,7 +611,10 @@ public final class Battle extends BaseBattle {
 		}
 		if (zap && oneTeamRemaining())
 		{
-			battleManager.addRobot("sample.Crazy", "Computer Player");  //The fun never stops
+			RobotNameInfo menuRobot = new RobotNameInfo();
+			menuRobot.setContestantName("Computer Player");
+			menuRobot.setRobotAIName("sample.Crazy");
+			battleManager.addRobot(menuRobot);  //The fun never stops
 		}
 	}
 

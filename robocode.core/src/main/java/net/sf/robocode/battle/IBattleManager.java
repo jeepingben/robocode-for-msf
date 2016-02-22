@@ -8,6 +8,7 @@
 package net.sf.robocode.battle;
 
 
+import net.sf.robocode.robotname.RobotNameInfo;
 import robocode.Event;
 
 
@@ -92,5 +93,5 @@ public interface IBattleManager extends IBattleManagerBase {
 
 	void cleanup();
 	
-	void addRobot(String className, String robotName);
+	void addRobot(RobotNameInfo robotInfo);
 }

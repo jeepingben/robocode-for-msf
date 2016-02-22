@@ -28,7 +28,13 @@ public class RobotNameFactory {
 		//     return newRobot;
 		// }
 		
-		//This one never returns null
+		newRobot =  IndexRobotNameGetter.create(barcode, aiNameGetter);
+	    if (newRobot != null)
+		{
+		     return newRobot;
+		}
+		
+	    //This one never returns null
 		newRobot = SimpleRobotNameGetter.create(barcode, aiNameGetter);
 		return newRobot;
 	}
