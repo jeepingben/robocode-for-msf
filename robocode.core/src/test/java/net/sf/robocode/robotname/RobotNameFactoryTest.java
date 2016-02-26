@@ -20,6 +20,21 @@ public class RobotNameFactoryTest {
 	}
 
 	@Test
+	public void testIndex2() {
+		RobotNameFactory sut = new RobotNameFactory(new MockRepositoryManager());
+		RobotNameInfo result = sut.getRobotNameInfo("A01Q8$");
+		Assert.assertEquals("net.sf.robocode.robotname.Base34RobotNameGetter", result.getClass().getName() );
+	}
+	
+	@Test
+	public void testIndex3() {
+		RobotNameFactory sut = new RobotNameFactory(new MockRepositoryManager());
+		RobotNameInfo result = sut.getRobotNameInfo("A01ZZ8$");
+		Assert.assertEquals(new Integer(45), result.getEnergyBonus());
+		Assert.assertEquals("net.sf.robocode.robotname.Base34RobotNameGetter", result.getClass().getName() );
+	}
+	
+	@Test
 	public void testBadIndex1() {
 		RobotNameFactory sut = new RobotNameFactory(new MockRepositoryManager());
 		RobotNameInfo result = sut.getRobotNameInfo("999-000-00-IDX");
@@ -44,6 +59,20 @@ public class RobotNameFactoryTest {
 	public void testBadIndex4() {
 		RobotNameFactory sut = new RobotNameFactory(new MockRepositoryManager());
 		RobotNameInfo result = sut.getRobotNameInfo("000-000-00-FDX");
+		Assert.assertEquals("net.sf.robocode.robotname.SimpleRobotNameGetter", result.getClass().getName() );
+	}
+	
+	@Test
+	public void testBadIndex5() {
+		RobotNameFactory sut = new RobotNameFactory(new MockRepositoryManager());
+		RobotNameInfo result = sut.getRobotNameInfo("ZZAAA$");
+		Assert.assertEquals("net.sf.robocode.robotname.SimpleRobotNameGetter", result.getClass().getName() );
+	}
+	
+	@Test
+	public void testBadIndex6() {
+		RobotNameFactory sut = new RobotNameFactory(new MockRepositoryManager());
+		RobotNameInfo result = sut.getRobotNameInfo("A89A6&");
 		Assert.assertEquals("net.sf.robocode.robotname.SimpleRobotNameGetter", result.getClass().getName() );
 	}
 }

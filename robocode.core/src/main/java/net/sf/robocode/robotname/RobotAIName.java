@@ -60,7 +60,7 @@ public class RobotAIName {
 	{
 		List<IRobotSpecItem> robotList = repositoryManager.getRepositoryItems(false,
 				false, true, false, false, false, false);
-		if (index < robotList.size())
+		if (index >= 0 && index < robotList.size())
 		{
 			return robotList.get((int)index).getFullClassName();
 		}

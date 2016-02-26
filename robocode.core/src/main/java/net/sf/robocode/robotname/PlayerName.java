@@ -17,7 +17,7 @@ public class PlayerName {
 	
 	static public String getAdjective(Integer index)
 	{
-		if (index >= adjectiveGetter.getListLength()) {
+		if (index < 0 || index >= adjectiveGetter.getListLength()) {
 			return null;
 		}
 		return adjectiveGetter.getWordFromList(index);
@@ -25,7 +25,7 @@ public class PlayerName {
 	
 	static public String getNoun(Integer index)
 	{
-		if (index >= nounGetter.getListLength()) {
+		if (index < 0 || index >= nounGetter.getListLength()) {
 			return null;
 		}
 		return nounGetter.getWordFromList(index);
