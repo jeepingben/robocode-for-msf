@@ -8,9 +8,9 @@ public class NounTest {
 	@Test
 	public void test() {
 		Noun sut = new Noun();
-		Assert.assertEquals(sut.getWord("Bogus"), "dash");
-		Assert.assertEquals(sut.getWord("79236347962"), "existence");
-		Assert.assertEquals(sut.getWord("53"), "authorization");
+		Assert.assertEquals(sut.getWord("Bogus"), "wash");
+		Assert.assertEquals(sut.getWord("79236347962"), "viola");
+		Assert.assertEquals(sut.getWord("53"), "growth");
 	}
 
 }

@@ -21,7 +21,7 @@ public class Word {
 		for(int i = 1; i < input.length(); i++)
 		{
 			//17 - chosen by a fair dice roll.  Guaranteed prime.
-			result = result + 17 + input.charAt(i);
+			result = result * 17 + input.charAt(i);
 		}
 		return Math.abs(result);
 	}
