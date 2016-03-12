@@ -28,6 +28,12 @@ public class RobotNameFactory {
 		//     return newRobot;
 		// }
 		
+		newRobot =  EggRobotNameGetter.create(barcode, aiNameGetter);
+	    if (newRobot != null)
+		{
+		     return newRobot;
+		}
+	    
 		newRobot =  Base34RobotNameGetter.create(barcode, aiNameGetter);
 	    if (newRobot != null)
 		{

@@ -859,7 +859,21 @@ public final class Battle extends BaseBattle {
 		}
 
 		public void execute() {
-			robots.get(robotIndex).kill();
+			if (robotIndex == -1)
+			{
+				for (int i=0; i<robots.size();i++)
+				{
+					if (robots.get(i).isAlive())
+					{
+						robots.get(i).kill();
+						return;
+					}
+				}
+			}
+			else if (robotIndex < robots.size())
+			{
+				robots.get(robotIndex).kill();
+			}
 		}
 	}
 

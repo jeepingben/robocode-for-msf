@@ -35,6 +35,14 @@ public class RobotNameFactoryTest {
 	}
 	
 	@Test
+	public void testEgg1() {
+		RobotNameFactory sut = new RobotNameFactory(new MockRepositoryManager());
+		RobotNameInfo result = sut.getRobotNameInfo("53");
+		Assert.assertEquals(new Integer(-40), result.getEnergyBonus());
+		Assert.assertEquals("net.sf.robocode.robotname.EggRobotNameGetter", result.getClass().getName() );
+	}
+	
+	@Test
 	public void testBadIndex1() {
 		RobotNameFactory sut = new RobotNameFactory(new MockRepositoryManager());
 		RobotNameInfo result = sut.getRobotNameInfo("999-000-00-IDX");
@@ -75,4 +83,5 @@ public class RobotNameFactoryTest {
 		RobotNameInfo result = sut.getRobotNameInfo("A89A6&");
 		Assert.assertEquals("net.sf.robocode.robotname.SimpleRobotNameGetter", result.getClass().getName() );
 	}
+	
 }
