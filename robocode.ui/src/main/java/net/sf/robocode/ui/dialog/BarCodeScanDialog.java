@@ -4,17 +4,13 @@ package net.sf.robocode.ui.dialog;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import net.sf.robocode.battle.IBattleManager;
 import net.sf.robocode.repository.IRepositoryManager;
-import net.sf.robocode.robotname.RobotAIName;
 import net.sf.robocode.robotname.RobotNameFactory;
 import net.sf.robocode.robotname.RobotNameInfo;
 import net.sourceforge.zbar.Image;
@@ -97,6 +93,8 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 		
 		frameGrabber.setFrameInterval(1, 30);
 		frameGrabber.setFrameInterval(1, 20);
+		frameGrabber.setFrameInterval(1, 10);
+		frameGrabber.setFrameInterval(1, 6);
 		}
 		catch(InvalidValue e)
 		{
@@ -151,21 +149,10 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 	// again getting frame , showing it , recycle it
 	@Override
 	public void nextFrame(VideoFrame frame) {
-		setImage(frame.getBufferedImage()); // get the captured frame to
-											// Buffered Image
 
 		label.getGraphics().drawImage(frame.getBufferedImage(), 4, 4, width,
 				height, null);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		try {
-			ImageIO.write(bf, "jpg", baos);
-			baos.flush();
-			image.setData(baos.toByteArray());
-			baos.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		image.setData(frame.getBytes());
 		long scanTimeMillis = System.currentTimeMillis();
 		if (scanTimeMillis - lastScanTimeMillis > MAX_WAIT_TO_ADD_TIME) {
 			if (scanningdisabled) {
@@ -194,11 +181,4 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 
 	}
 
-	public void setImage(BufferedImage b) {
-		bf = b;
-	}
-
-	public BufferedImage getImage() {
-		return bf;
-	}
 }
