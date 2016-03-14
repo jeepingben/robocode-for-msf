@@ -22,6 +22,11 @@ public class Base34RobotNameGetterTest {
 		Assert.assertEquals(new Integer(-1),Base34RobotNameGetter.base34Tobase10("I"));
 		Assert.assertEquals(new Integer(-1),Base34RobotNameGetter.base34Tobase10("O"));
 	}
+	
+	@Test
+	public void testempty() {
+		Assert.assertEquals(new Integer(-1),Base34RobotNameGetter.base34Tobase10(""));
+	}
 
 	
 	

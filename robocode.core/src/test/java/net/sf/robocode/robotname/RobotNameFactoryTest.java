@@ -22,14 +22,14 @@ public class RobotNameFactoryTest {
 	@Test
 	public void testIndex2() {
 		RobotNameFactory sut = new RobotNameFactory(new MockRepositoryManager());
-		RobotNameInfo result = sut.getRobotNameInfo("A01Q8$");
+		RobotNameInfo result = sut.getRobotNameInfo("A01Q2$");
 		Assert.assertEquals("net.sf.robocode.robotname.Base34RobotNameGetter", result.getClass().getName() );
 	}
 	
 	@Test
 	public void testIndex3() {
 		RobotNameFactory sut = new RobotNameFactory(new MockRepositoryManager());
-		RobotNameInfo result = sut.getRobotNameInfo("A01ZZ8$");
+		RobotNameInfo result = sut.getRobotNameInfo("A01ZZ1$");
 		Assert.assertEquals(new Integer(45), result.getEnergyBonus());
 		Assert.assertEquals("net.sf.robocode.robotname.Base34RobotNameGetter", result.getClass().getName() );
 	}

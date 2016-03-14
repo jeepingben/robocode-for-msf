@@ -24,12 +24,12 @@ public class Base34RobotNameGetter extends IndexRobotNameGetter{
 		if (barcode.matches("[0-9,A-Z][0-9,A-Z][0-9,A-Z][0-9,A-Z][0-9,A-Z]\\$$")) {
 		    adjectiveIndex = base34Tobase10(barcode.substring(0,2));
 			nounIndex = base34Tobase10(barcode.substring(2,4));
-			aiIndex = base34Tobase10(barcode.substring(5,5));
+			aiIndex = base34Tobase10(barcode.substring(4,5));
 		}
 		else if (barcode.matches("[0-9,A-Z][0-9,A-Z][0-9,A-Z][0-9,A-Z][0-9,A-Z][0-9,A-Z]\\$$")) {
 		    adjectiveIndex = base34Tobase10(barcode.substring(0,2));
 			nounIndex = base34Tobase10(barcode.substring(2,5));
-			aiIndex = base34Tobase10(barcode.substring(6,6));
+			aiIndex = base34Tobase10(barcode.substring(5,6));
 			extraBonus=5;
 		}
 		else {
@@ -53,6 +53,10 @@ public class Base34RobotNameGetter extends IndexRobotNameGetter{
 	 */
 	public static Integer base34Tobase10(String base34)
 	{
+		if (base34.isEmpty())
+		{
+			return -1;
+		}
 		Integer result = 0;
 		Integer placeMultiplier = 1;
 		final Integer BASE=34;
