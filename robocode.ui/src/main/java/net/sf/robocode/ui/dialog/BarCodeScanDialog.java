@@ -173,6 +173,12 @@ public class BarCodeScanDialog extends JFrame implements CaptureCallback {
 				{
 					battleManager.killRobot(-1);
 					battleManager.killRobot(-1);
+					battleManager.killRobot(-1);
+					battleManager.killRobot(-1);
+				}
+				if (data.equals("LAME")) 
+				{
+					battleManager.killRobot(-1);
 				}
 				else
 				{
